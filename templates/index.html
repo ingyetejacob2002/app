@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Result Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        form input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form button {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        td {
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Joseph Sarwuan Tarka University's Student Result Tracker</h1>
+    
+    <form id="resultForm">
+        <label>Name:</label>
+        <input type="text" id="name" required><br><br>
+        
+        <label>Math Marks:</label>
+        <input type="number" id="math" min="0" max="100" required><br><br>
+        
+        <label>Science Marks:</label>
+        <input type="number" id="science" min="0" max="100" required><br><br>
+        
+        <label>English Marks:</label>
+        <input type="number" id="english" min="0" max="100" required><br><br>
+        
+        <button type="button" id="addResult">Add Result</button>
+    </form>
+
+    <h2>Student Results</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Math</th>
+                <th>Science</th>
+                <th>English</th>
+                <th>Total Marks</th>
+                <th>Average</th>
+            </tr>
+        </thead>
+        <tbody id="resultsTable">
+            <!-- Results will be dynamically added here -->
+        </tbody>
+    </table>
+
+    <script>
+        document.getElementById('addResult').addEventListener('click', () => {
+            // Get input values
+            const name = document.getElementById('name').value;
+            const math = parseFloat(document.getElementById('math').value) || 0;
+            const science = parseFloat(document.getElementById('science').value) || 0;
+            const english = parseFloat(document.getElementById('english').value) || 0;
+
+            if (!name || isNaN(math) || isNaN(science) || isNaN(english)) {
+                alert('Please fill out all fields with valid data.');
+                return;
+            }
+
+            // Calculate total and average
+            const total = math + science + english;
+            const average = (total / 3).toFixed(2);
+
+            // Create a new row in the table
+            const resultsTable = document.getElementById('resultsTable');
+            const newRow = document.createElement('tr');
+
+            newRow.innerHTML = `
+                <td>${name}</td>
+                <td>${math}</td>
+                <td>${science}</td>
+                <td>${english}</td>
+                <td>${total}</td>
+                <td>${average}</td>
+            `;
+
+            resultsTable.appendChild(newRow);
+
+            // Clear input fields
+            document.getElementById('name').value = '';
+            document.getElementById('math').value = '';
+            document.getElementById('science').value = '';
+            document.getElementById('english').value = '';
+        });
+    </script>
+</body>
+</html>
